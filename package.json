@@ -4,9 +4,10 @@
   "description": "Generator of webfonts from svg icons",
   "main": "lib/index.js",
   "scripts": {
+    "bootstrap": "yarn || npm",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:js && npm run build:types",
+    "build": "npm run bootstrap && npm run build:js && npm run build:types",
     "build:js": "npx babel src --out-dir lib --extensions .ts --source-maps inline",
     "build:types": "npx tsc --emitDeclarationOnly",
     "test": "npx jest",
@@ -33,7 +34,6 @@
     "glob": "^7.1.4",
     "handlebars": "^4.0.5",
     "lodash": "^4.17.11",
-    "merge": "^1.2.1",
     "mkdirp": "^0.5.1",
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",
@@ -52,14 +52,12 @@
     "@types/lodash": "^4.14.121",
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^11.11.6",
-    "@types/ttf2woff2": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.14.1",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.1.0",
-    "prettier": "^1.17.1",
-    "ts-jest": "^24.0.0"
+    "prettier": "^1.17.1"
   }
 }
