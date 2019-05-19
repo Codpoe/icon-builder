@@ -1,0 +1,8 @@
+.DS_Store
+.vscode
+node_modules
+yarn-error.log
+lib
+es
+test/output-2
+test/temp

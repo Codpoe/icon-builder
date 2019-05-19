@@ -1,0 +1,33 @@
+@font-face {
+	font-family: "{{ fontName }}";
+	src: {{{ src }}};
+}
+
+[class^="{{ classPrefix }}"], [class*="{{ classPrefix }}"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "{{ fontName }}" !important;
+  display: block;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+{{!-- {{baseSelector}}:before {
+	font-family: {{fontName}} !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+} --}}
+
+{{#each codepoints}}
+.{{../classPrefix}}{{@key}}:before {
+	content: "\\{{this}}";
+}
+{{/each}}
