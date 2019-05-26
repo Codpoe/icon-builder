@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.11.4
+    steps:
+      - checkout
+      - run:
+          name: bootstrap
+          command: npm run bootstrap
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: build
+          command: npm run build
+      - run:
+          name: test
+          command: npm run test
+      
