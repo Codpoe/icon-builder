@@ -1,6 +1,6 @@
 {
   "name": "@codpoe/iconfont",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Generator of webfonts from svg icons",
   "main": "lib/index.js",
   "scripts": {
