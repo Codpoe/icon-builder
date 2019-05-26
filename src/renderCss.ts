@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
+import * as prettier from 'prettier';
 
 import { Options, FontType, UrlTemplate, UrlMap } from './types/index';
 
@@ -80,7 +81,7 @@ const renderCss = (opts: Options, urlMapOrHash?: UrlMap | string): string => {
   const source = fs.readFileSync(opts.css.template as string, 'utf8');
   const template = handlebars.compile(source);
 
-  return template(ctx);
+  return prettier.format(template(ctx), { parser: 'css', printWidth: 120 });
 };
 
 export default renderCss;

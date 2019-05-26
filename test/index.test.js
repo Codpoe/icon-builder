@@ -13,9 +13,10 @@ describe('iconfont', () => {
     fontName: FONT_NAME,
     types: TYPES,
   };
-  const TEMPLATE = path.join(__dirname, 'custom-template.hbs');
+  const HTML_TEMPLATE = path.join(__dirname, 'templates/html.hbs');
+  const CSS_TEMPLATE = path.join(__dirname, 'templates/css.hbs');
   const TEMPLATE_OPTIONS = { test: 'TEST' };
-  const RENDERED_TEMPLATE = `custom template ${TEMPLATE_OPTIONS.test}\n`;
+  const RENDERED_TEMPLATE = `custom template ${TEMPLATE_OPTIONS.test}`;
 
   // delete emitted file after test
   afterEach(() => {
@@ -138,7 +139,7 @@ describe('iconfont', () => {
   it('uses codepoints and startCodepoint', async () => {
     const START_CODEPOINT = 0x40;
     const CODEPOINTS = {
-      close: 0xff,
+      github: 0xff,
     };
     const options = {
       ...OPTIONS,
@@ -160,7 +161,7 @@ describe('iconfont', () => {
 
     expect(isCodepointInSvg(START_CODEPOINT)).toBeTruthy(); // startCodepoint used
     // expect(isCodepointInSvg(START_CODEPOINT + 1)).toBeTruthy(); // startCodepoint incremented
-    expect(isCodepointInSvg(CODEPOINTS.close)).toBeTruthy(); // codepoints used
+    expect(isCodepointInSvg(CODEPOINTS.github)).toBeTruthy(); // codepoints used
   });
 
   it('uses custom css template', async () => {
@@ -168,7 +169,7 @@ describe('iconfont', () => {
       ...OPTIONS,
       css: {
         emit: true,
-        template: TEMPLATE,
+        template: CSS_TEMPLATE,
         options: TEMPLATE_OPTIONS,
       },
     };
@@ -178,7 +179,7 @@ describe('iconfont', () => {
       path.join(OUTPUT, `${FONT_NAME}.css`),
       'utf8'
     );
-    expect(cssFile).toBe(RENDERED_TEMPLATE);
+    expect(cssFile).toMatch(RENDERED_TEMPLATE);
   });
 
   it('uses custom html template', async () => {
@@ -186,7 +187,7 @@ describe('iconfont', () => {
       ...OPTIONS,
       html: {
         emit: true,
-        template: TEMPLATE,
+        template: HTML_TEMPLATE,
         options: TEMPLATE_OPTIONS,
       },
     };
@@ -196,7 +197,7 @@ describe('iconfont', () => {
       path.join(OUTPUT, `${FONT_NAME}.html`),
       'utf8'
     );
-    expect(htmlFile).toBe(RENDERED_TEMPLATE);
+    expect(htmlFile).toMatch(RENDERED_TEMPLATE);
   });
 
   // describe('scss template', () => {

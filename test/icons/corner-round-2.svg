@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
-    <title>icon/编辑/圆角</title>
-    <desc>Created with Sketch.</desc>
-    <g id="icon/编辑/圆角" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M6,16 L6,10 C6,7.790861 7.790861,6 10,6 L16,6 L16,4 L4,4 L4,16 L6,16 Z M2,2 L18,2 L18,18 L2,18 L2,2 Z M10,8 C8.8954305,8 8,8.8954305 8,10 L8,16 L16,16 L16,8 L10,8 Z" id="Combined-Shape" fill="#7D7E80" fill-rule="nonzero"></path>
-    </g>
-</svg>

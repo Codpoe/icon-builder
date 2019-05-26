@@ -35,6 +35,7 @@
     "handlebars": "^4.0.5",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
+    "prettier": "^1.17.1",
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",
     "ttf2eot": "^2.0.0",
@@ -52,12 +53,12 @@
     "@types/lodash": "^4.14.121",
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^11.11.6",
+    "@types/prettier": "^1.16.4",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.14.1",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "jest": "^24.1.0",
-    "prettier": "^1.17.1"
+    "jest": "^24.1.0"
   }
 }

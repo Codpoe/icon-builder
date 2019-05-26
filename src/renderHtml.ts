@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as handlebars from 'handlebars';
+import * as prettier from 'prettier';
 
 import renderCss from './renderCss';
 import { Options } from './types/index';
@@ -28,7 +29,7 @@ const renderHtml = (opts: Options, hashStr?: string): string => {
     styles: styles,
     ...opts.html.options,
   };
-  return template(ctx);
+  return prettier.format(template(ctx), { parser: 'html', printWidth: 120 });
 };
 
 export default renderHtml;
