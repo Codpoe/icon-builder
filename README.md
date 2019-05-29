@@ -33,7 +33,7 @@ async () => {
 | option | type | default | description |
 |---|---|---|---|
 | src | `string` | | required |
-| out | `string | false` | `false` | |
+| out | `string` / `false` | `false` | |
 | fontName | `string` | `'iconfont'` | |
 | classPrefix | `string` | `'icon-'` | |
 | hash | `boolean` | `true` | use hash |
