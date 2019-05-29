@@ -1,5 +1,6 @@
 # iconfont generator
 
+![CircleCI](https://img.shields.io/circleci/build/github/Codpoe/iconfont.svg)
 ![David](https://img.shields.io/david/codpoe/iconfont.svg)
 ![npm (scoped)](https://img.shields.io/npm/v/@codpoe/iconfont.svg)
 
