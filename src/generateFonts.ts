@@ -11,14 +11,6 @@ import { Options } from './types/index';
 
 /**
  * Generators for files of different font types.
- *
- * Generators have following properties:
- * [deps] {array.<string>} Names of font types that will be generated before current
- * and passed to generator function.
- * fn {function(options, ...depsFonts, done)} Generator function with following arguments:
- * options {object} Options passed to 'generateFonts' function.
- * ...depsFonts Fonts listed in deps.
- * done {function(err, font)} Callback that takes error or null and generated font.
  */
 const gens: { [key in FontType]: Gen } = {
   svg: {
@@ -138,10 +130,7 @@ const gens: { [key in FontType]: Gen } = {
   woff: {
     deps: ['ttf'],
     async fn(opts: Options, depsFonts: (string | Buffer)[]): Promise<Buffer> {
-      const font = ttf2woff(
-        new Uint8Array(depsFonts[0] as Buffer),
-        opts.formatOptions.woff
-      );
+      const font = ttf2woff(new Uint8Array(depsFonts[0] as Buffer), opts.formatOptions.woff);
       return Buffer.from(font.buffer);
     },
   },
@@ -149,10 +138,7 @@ const gens: { [key in FontType]: Gen } = {
   woff2: {
     deps: ['ttf'],
     async fn(opts: Options, depsFonts: (string | Buffer)[]): Promise<Buffer> {
-      const font = ttf2woff2(
-        new Uint8Array(depsFonts[0] as Buffer),
-        opts.formatOptions.woff2
-      );
+      const font = ttf2woff2(new Uint8Array(depsFonts[0] as Buffer), opts.formatOptions.woff2);
       return Buffer.from(font.buffer);
     },
   },
@@ -160,10 +146,7 @@ const gens: { [key in FontType]: Gen } = {
   eot: {
     deps: ['ttf'],
     async fn(opts: Options, depsFonts: (string | Buffer)[]): Promise<Buffer> {
-      const font = ttf2eot(
-        new Uint8Array(depsFonts[0] as Buffer),
-        opts.formatOptions.eot
-      );
+      const font = ttf2eot(new Uint8Array(depsFonts[0] as Buffer), opts.formatOptions.eot);
       return Buffer.from(font.buffer);
     },
   },

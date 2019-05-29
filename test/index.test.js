@@ -4,12 +4,12 @@ import iconfont from '../lib/index';
 
 describe('iconfont', () => {
   const SRC = path.join(__dirname, 'icons/*.svg');
-  const OUTPUT = path.join(__dirname, 'output');
+  const OUT = path.join(__dirname, 'out');
   const TYPES = ['ttf', 'woff', 'woff2', 'eot', 'svg'];
   const FONT_NAME = 'my-icon';
   const OPTIONS = {
     src: SRC,
-    output: OUTPUT,
+    out: OUT,
     fontName: FONT_NAME,
     types: TYPES,
   };
@@ -20,14 +20,14 @@ describe('iconfont', () => {
 
   // delete emitted file after test
   afterEach(() => {
-    fs.readdirSync(OUTPUT)
-      .map(file => path.join(OUTPUT, file))
+    fs.readdirSync(OUT)
+      .map(file => path.join(OUT, file))
       .forEach(fs.unlinkSync);
   });
 
   // delete dest dir
   afterAll(() => {
-    fs.rmdirSync(OUTPUT);
+    fs.rmdirSync(OUT);
   });
 
   it('returns object with fonts and function generateCSS()', async () => {
@@ -48,7 +48,7 @@ describe('iconfont', () => {
     const { options } = await iconfont(OPTIONS);
 
     TYPES.forEach(type => {
-      const file = path.join(OUTPUT, `${FONT_NAME}_${options.hashStr}.${type}`);
+      const file = path.join(OUT, `${FONT_NAME}_${options.hashStr}.${type}`);
       expect(fs.existsSync(file)).toBeTruthy(); // font file exists
       expect(fs.statSync(file).size).toBeGreaterThan(0); // font files is not empty
     });
@@ -56,7 +56,7 @@ describe('iconfont', () => {
     // for (const i in TYPES) {
     //   const type = TYPES[i];
     //   const filename = `${FONT_NAME}.${type}`;
-    //   const filepath = path.join(OUTPUT, filename);
+    //   const filepath = path.join(OUT, filename);
     //   assert(destFiles.indexOf(filename) !== -1, `${type} file exists`);
     //   assert(fs.statSync(filepath).size > 0, `${type} file is not empty`);
 
@@ -68,35 +68,35 @@ describe('iconfont', () => {
     //   }
     // }
 
-    const cssFile = path.join(OUTPUT, `${FONT_NAME}.css`);
+    const cssFile = path.join(OUT, `${FONT_NAME}.css`);
     expect(fs.existsSync(cssFile)).toBeTruthy(); // css file exists
     expect(fs.statSync(cssFile).size).toBeGreaterThan(0); // css file is not empty
 
-    // const htmlFile = path.join(OUTPUT, `${FONT_NAME}.html`);
+    // const htmlFile = path.join(OUT, `${FONT_NAME}.html`);
     // expect(fs.existsSync(htmlFile)).toBeFalsy(); // html not exists
   });
 
-  it('generates html file when options.html.emit is true', async () => {
-    await iconfont({ ...OPTIONS, html: { emit: true } });
+  it('generates html file when options.html.out is true', async () => {
+    await iconfont({ ...OPTIONS, html: { out: true } });
 
-    const htmlFile = path.join(OUTPUT, `${FONT_NAME}.html`);
+    const htmlFile = path.join(OUT, `${FONT_NAME}.html`);
     expect(fs.existsSync(htmlFile)).toBeTruthy(); // html file exists
     expect(fs.statSync(htmlFile).size).toBeGreaterThan(0); // html file is not empty
   });
 
   it('generates css file with custom name in other output', async () => {
-    const cssFile = path.join(__dirname, 'output-2/your-icon.css');
+    const cssFile = path.join(__dirname, 'out-2/your-icon.css');
 
-    await iconfont({ ...OPTIONS, css: { emit: true, output: cssFile } });
+    await iconfont({ ...OPTIONS, css: { out: cssFile } });
 
     expect(fs.existsSync(cssFile)).toBeTruthy(); // html file exists
     expect(fs.statSync(cssFile).size).toBeGreaterThan(0); // html file is not empty
   });
 
   it('generates html file with custom name in other output', async () => {
-    const htmlFile = path.join(__dirname, 'output-2/your-icon.html');
+    const htmlFile = path.join(__dirname, 'out-2/your-icon.html');
 
-    await iconfont({ ...OPTIONS, html: { emit: true, output: htmlFile } });
+    await iconfont({ ...OPTIONS, html: { out: htmlFile } });
 
     expect(fs.existsSync(htmlFile)).toBeTruthy(); // html file exists
     expect(fs.statSync(htmlFile).size).toBeGreaterThan(0); // html file is not empty
@@ -112,17 +112,6 @@ describe('iconfont', () => {
     };
 
     expect(result.generateCss(urls).indexOf('AAA')).toBeGreaterThan(-1);
-  });
-
-  it('gives error when "output" is invalid', async () => {
-    const options = { ...OPTIONS, output: '' };
-
-    expect.assertions(1);
-    try {
-      await iconfont(options);
-    } catch (err) {
-      expect(err.message).toMatch('output');
-    }
   });
 
   it('gives error when "src" is invalid or length equals 0', async () => {
@@ -151,10 +140,7 @@ describe('iconfont', () => {
       options: { hashStr },
     } = await iconfont(options);
 
-    const svg = fs.readFileSync(
-      path.join(OUTPUT, `${FONT_NAME}_${hashStr}.svg`),
-      'utf8'
-    );
+    const svg = fs.readFileSync(path.join(OUT, `${FONT_NAME}_${hashStr}.svg`), 'utf8');
     const isCodepointInSvg = codepoint => {
       return svg.indexOf(codepoint.toString(16).toUpperCase()) !== -1;
     };
@@ -168,17 +154,14 @@ describe('iconfont', () => {
     const options = {
       ...OPTIONS,
       css: {
-        emit: true,
+        out: true,
         template: CSS_TEMPLATE,
         options: TEMPLATE_OPTIONS,
       },
     };
 
     await iconfont(options);
-    const cssFile = fs.readFileSync(
-      path.join(OUTPUT, `${FONT_NAME}.css`),
-      'utf8'
-    );
+    const cssFile = fs.readFileSync(path.join(OUT, `${FONT_NAME}.css`), 'utf8');
     expect(cssFile).toMatch(RENDERED_TEMPLATE);
   });
 
@@ -186,66 +169,14 @@ describe('iconfont', () => {
     const options = {
       ...OPTIONS,
       html: {
-        emit: true,
+        out: true,
         template: HTML_TEMPLATE,
         options: TEMPLATE_OPTIONS,
       },
     };
 
     await iconfont(options);
-    const htmlFile = fs.readFileSync(
-      path.join(OUTPUT, `${FONT_NAME}.html`),
-      'utf8'
-    );
+    const htmlFile = fs.readFileSync(path.join(OUT, `${FONT_NAME}.html`), 'utf8');
     expect(htmlFile).toMatch(RENDERED_TEMPLATE);
   });
-
-  // describe('scss template', () => {
-  //   const TEST_SCSS_SINGLE = path.join(__dirname, 'scss', 'singleFont.scss');
-  //   const TEST_SCSS_MULTIPLE = path.join(__dirname, 'scss', 'multipleFonts.scss');
-
-  //   it('creates mixins that can be used to create icons styles', async () => {
-  //     const OUTPUT_CSS = path.join(OUTPUT, `${FONT_NAME}.scss`);
-  //     const options = _.extend({}, OPTIONS, {
-  //       cssTemplate: genIcon.templates.scss,
-  //       cssDest: OUTPUT_CSS,
-  //     });
-
-  //     await genIcon(options);
-  //     const rendered = sass.renderSync({
-  //       file: TEST_SCSS_SINGLE,
-  //     });
-  //     const css = rendered.css.toString();
-  //     expect(css.indexOf(FONT_NAME)).toBeGreaterThan(-1);
-  //   });
-
-  //   it('multiple scss mixins can be used together', async () => {
-  //     const FONT_NAME_2 = `${FONT_NAME}2`;
-  //     const OUTPUT_CSS = path.join(OUTPUT, `${FONT_NAME}.scss`);
-  //     const OUTPUT_CSS_2 = path.join(OUTPUT, `${FONT_NAME_2}.scss`);
-
-  //     const options1 = _.extend({}, OPTIONS, {
-  //       cssTemplate: genIcon.templates.scss,
-  //       cssDest: OUTPUT_CSS,
-  //       files: [path.join(SRC, 'close.svg')],
-  //     });
-  //     const options2 = _.extend({}, OPTIONS, {
-  //       fontName: FONT_NAME_2,
-  //       cssTemplate: genIcon.templates.scss,
-  //       cssDest: OUTPUT_CSS_2,
-  //       files: [path.join(SRC, 'back.svg')],
-  //     });
-
-  //     const generate1 = Q.nfcall(genIcon, options1);
-  //     const generate2 = Q.nfcall(genIcon, options2);
-
-  //     await Q.all([generate1, generate2]);
-  //     const rendered = sass.renderSync({
-  //       file: TEST_SCSS_MULTIPLE,
-  //     });
-  //     const css = rendered.css.toString();
-  //     expect(css.indexOf(FONT_NAME)).toBeGreaterThan(-1);
-  //     expect(css.indexOf(FONT_NAME_2)).toBeGreaterThan(-1);
-  //   });
-  // });
 });

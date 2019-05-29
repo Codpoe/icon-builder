@@ -16,7 +16,7 @@ const renderHtml = (opts: Options, hashStr?: string): string => {
       ...opts,
       css: {
         ...opts.css,
-        output: opts.html.output,
+        out: opts.html.out,
       },
     },
     hashStr

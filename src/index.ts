@@ -20,17 +20,17 @@ const TEMPLATES = {
 const DEFAULT_OPTIONS: Options = {
   fontName: 'iconfont',
   fontHeight: 600,
-  emit: true,
+  out: false,
   classPrefix: 'icon-',
   hash: true,
   files: [],
   css: {
-    emit: true,
+    out: true,
     template: TEMPLATES.css,
     options: {},
   },
   html: {
-    emit: false,
+    out: false,
     template: TEMPLATES.html,
     options: {},
   },
@@ -58,45 +58,38 @@ const writeResult = (fonts: FontsResult, opts: Options): void => {
 
   Object.keys(fonts).forEach(
     (key): void => {
-      const filePath = path.join(
-        opts.output as string,
-        `${opts.fontName}${opts.hash ? `_${hashStr}` : ''}.${key}`
-      );
+      const filePath = path.join(opts.out as string, `${opts.fontName}${opts.hash ? `_${hashStr}` : ''}.${key}`);
       writeFile(filePath, fonts[key as FontType] as string | Buffer);
     }
   );
 
-  if (opts.css.emit && opts.css.output) {
+  if (opts.css.out) {
     const css = renderCss(opts, hashStr);
-    let { output } = opts.css;
+    let out = opts.css.out as string;
 
     // not a css file
-    if (!/\.(css|scss)$/.test(output)) {
-      output = path.join(output, `${opts.fontName}.css`);
+    if (!/\.(css|scss)$/.test(out)) {
+      out = path.join(out, `${opts.fontName}.css`);
     }
 
-    writeFile(output, css);
+    writeFile(out, css);
   }
 
-  if (opts.html.emit && opts.html.output) {
+  if (opts.html.out) {
     const html = renderHtml(opts, hashStr);
-    let { output } = opts.html;
+    let out = opts.html.out as string;
 
     // not a html file
-    if (!/\.(html|htm)?$/.test(output)) {
-      output = path.join(output, `${opts.fontName}.html`);
+    if (!/\.(html|htm)?$/.test(out)) {
+      out = path.join(out, `${opts.fontName}.html`);
     }
 
-    writeFile(output, html);
+    writeFile(out, html);
   }
 };
 
 export default async (options: Partial<Options>): Promise<FontsResult> => {
   const opts = _.merge({}, DEFAULT_OPTIONS, options);
-
-  if (!opts.output) {
-    throw new Error(`Option "output" is ${opts.output}.`);
-  }
 
   if (!opts.src) {
     throw new Error(`Option "src" is ${opts.src}.`);
@@ -111,12 +104,14 @@ export default async (options: Partial<Options>): Promise<FontsResult> => {
   opts.files = files.filter((file): boolean => file.endsWith('.svg'));
   opts.names = opts.files.map(opts.rename);
 
-  if (!opts.css.output) {
-    opts.css.output = path.join(opts.output, `${opts.fontName}.css`);
-  }
+  if (opts.out) {
+    if (opts.css.out === true) {
+      opts.css.out = path.join(opts.out, `${opts.fontName}.css`);
+    }
 
-  if (!opts.html.output) {
-    opts.html.output = path.join(opts.output, `${opts.fontName}.html`);
+    if (opts.html.out === true) {
+      opts.html.out = path.join(opts.out, `${opts.fontName}.html`);
+    }
   }
 
   // Generates codepoints starting from `opts.startCodepoint`,
@@ -131,17 +126,16 @@ export default async (options: Partial<Options>): Promise<FontsResult> => {
   };
 
   opts.names.forEach(
-    (name: string): void => {
+    (name): void => {
       if (!opts.codepoints[name]) {
         opts.codepoints[name] = getNextCodepoint();
       }
     }
   );
 
-  // TODO output
   const result = await generateFonts(opts);
 
-  if (opts.emit) {
+  if (opts.out) {
     writeResult(result, opts);
   }
 

@@ -10,23 +10,20 @@ export interface FormatOptions {
 
 export interface Options {
   src?: string;
-  output?: string;
+  out: string | false;
   files: string[];
   fontName: string;
   fontHeight: number;
   classPrefix: string;
-  emit: boolean;
   hash: boolean;
   hashStr?: string;
   css: {
-    emit: boolean;
-    output?: string;
+    out: string | boolean;
     template: string;
     options?: object;
   };
   html: {
-    emit: boolean;
-    output?: string;
+    out: string | boolean;
     template: string;
     options?: object;
   };
@@ -52,10 +49,7 @@ export interface FontsResult {
 
 export interface Gen {
   deps?: FontType[];
-  fn: (
-    options: Options,
-    depsFonts: (string | Buffer)[]
-  ) => Promise<string | Buffer>;
+  fn: (options: Options, depsFonts: (string | Buffer)[]) => Promise<string | Buffer>;
 }
 
 export type UrlTemplate = (opts: { url: string; fontName?: string }) => string;

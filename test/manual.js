@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 const path = require('path');
 const iconfont = require('../lib/index');
 
-const output = 'test/temp';
+const out = 'test/temp';
 
-if (fs.existsSync(output)) {
-  fs.readdirSync(output)
-    .map(file => path.join(output, file))
+if (fs.existsSync(out)) {
+  fs.readdirSync(out)
+    .map(file => path.join(out, file))
     .forEach(fs.unlinkSync);
 } else {
-  fs.mkdirSync(output);
+  fs.mkdirSync(out);
 }
 
 const options = {
-  src: 'test/icons/*.svg',
-  output,
   fontName: 'manual',
+  src: 'test/icons/*.svg',
+  out,
   classPrefix: 'manual-icon-',
-  html: { emit: true },
+  html: { out: true },
 };
 
 (async () => {

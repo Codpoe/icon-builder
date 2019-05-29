@@ -15,16 +15,11 @@ const urlTemplates: { [key in FontType]: UrlTemplate } = {
 
 const makeUrlMap = (opts: Options, hashStr?: string): UrlMap => {
   const res: UrlMap = {};
-  const cssFontsUrl = path.relative(
-    path.dirname(opts.css.output as string),
-    opts.output as string
-  );
+  const cssFontsUrl = path.relative(path.dirname(opts.css.out as string), opts.out as string);
 
   opts.types.forEach(
     (type): void => {
-      const fontName = `${opts.fontName}${
-        hashStr ? `_${hashStr}` : ''
-      }.${type}`;
+      const fontName = `${opts.fontName}${hashStr ? `_${hashStr}` : ''}.${type}`;
       res[type] = path.join(cssFontsUrl, fontName);
     }
   );

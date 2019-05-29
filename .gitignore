@@ -4,5 +4,5 @@ node_modules
 yarn-error.log
 lib
 es
-test/output-2
+test/out-2
 test/temp
