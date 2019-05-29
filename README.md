@@ -42,6 +42,23 @@ async () => {
 | codepoints | `object` | `{}` | unicode start |
 | normalize | `boolean` | `true` | |
 | centerHorizontally | `boolean` | `true` | |
+| css | `object` | | css config |
+| html | `object` | | html config |
+
+### css / html config
+```js
+{
+  out: true, // string | boolean
+  template: TEMPLATES.css / TEMPLATE.html,
+  options: {},
+}
+```
+About `out`:
+- `string`: the output path of css / html file.
+- `true`: the output path is the same as the fonts path.
+- `false`: no emit css / html file.
+
+By default, `css.out` is `true`, `html.out` is `false`.
 
 ## Note
 
