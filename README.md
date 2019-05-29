@@ -33,9 +33,9 @@ async () => {
 | option | type | default | description |
 |---|---|---|---|
 | src | `string` | | required |
-| output | `string` | | required |
+| out | `string | false` | `false` | |
 | fontName | `string` | `'iconfont'` | |
-| classPrefix | `string` | `'icon-'` | ||
+| classPrefix | `string` | `'icon-'` | |
 | hash | `boolean` | `true` | use hash |
 | types | `array` | `['svg', 'ttf', 'eot', 'woff', 'woff2']` | font types |
 | startCodepoint | `number` | `0xf101` | |
