@@ -53,42 +53,31 @@ describe('iconfont', () => {
       expect(fs.statSync(file).size).toBeGreaterThan(0); // font files is not empty
     });
 
-    // for (const i in TYPES) {
-    //   const type = TYPES[i];
-    //   const filename = `${FONT_NAME}.${type}`;
-    //   const filepath = path.join(OUT, filename);
-    //   assert(destFiles.indexOf(filename) !== -1, `${type} file exists`);
-    //   assert(fs.statSync(filepath).size > 0, `${type} file is not empty`);
-
-    //   const DETECTABLE = ['ttf', 'woff', 'woff2', 'eot'];
-    //   if (_.contains(DETECTABLE, type)) {
-    //     const chunk = readChunk.sync(filepath, 0, 262);
-    //     const filetype = getFileType(chunk);
-    //     assert.equal(type, filetype && filetype.ext, 'ttf filetype is correct');
-    //   }
-    // }
-
     const cssFile = path.join(OUT, `${FONT_NAME}.css`);
     expect(fs.existsSync(cssFile)).toBeTruthy(); // css file exists
     expect(fs.statSync(cssFile).size).toBeGreaterThan(0); // css file is not empty
 
-    // const htmlFile = path.join(OUT, `${FONT_NAME}.html`);
-    // expect(fs.existsSync(htmlFile)).toBeFalsy(); // html not exists
+    // outFiles
+    options.outFiles.forEach(file => {
+      expect(fs.existsSync(file)).toBeTruthy();
+      expect(fs.statSync(file).size).toBeGreaterThan(0);
+    });
   });
 
   it('generates html file when options.html.out is true', async () => {
-    await iconfont({ ...OPTIONS, html: { out: true } });
+    const { options } = await iconfont({ ...OPTIONS, html: { out: true } });
 
-    const htmlFile = path.join(OUT, `${FONT_NAME}.html`);
+    const htmlFile = path.resolve(OUT, `${FONT_NAME}.html`);
+    expect(options.outFiles.indexOf(htmlFile)).toBeGreaterThanOrEqual(0);
     expect(fs.existsSync(htmlFile)).toBeTruthy(); // html file exists
     expect(fs.statSync(htmlFile).size).toBeGreaterThan(0); // html file is not empty
   });
 
   it('generates css file with custom name in other output', async () => {
     const cssFile = path.join(__dirname, 'out-2/your-icon.css');
+    const { options } = await iconfont({ ...OPTIONS, css: { out: cssFile } });
 
-    await iconfont({ ...OPTIONS, css: { out: cssFile } });
-
+    expect(options.outFiles.indexOf(path.resolve(cssFile))).toBeGreaterThanOrEqual(0);
     expect(fs.existsSync(cssFile)).toBeTruthy(); // html file exists
     expect(fs.statSync(cssFile).size).toBeGreaterThan(0); // html file is not empty
   });
@@ -96,8 +85,9 @@ describe('iconfont', () => {
   it('generates html file with custom name in other output', async () => {
     const htmlFile = path.join(__dirname, 'out-2/your-icon.html');
 
-    await iconfont({ ...OPTIONS, html: { out: htmlFile } });
+    const { options } = await iconfont({ ...OPTIONS, html: { out: htmlFile } });
 
+    expect(options.outFiles.indexOf(path.resolve(htmlFile))).toBeGreaterThanOrEqual(0);
     expect(fs.existsSync(htmlFile)).toBeTruthy(); // html file exists
     expect(fs.statSync(htmlFile).size).toBeGreaterThan(0); // html file is not empty
   });

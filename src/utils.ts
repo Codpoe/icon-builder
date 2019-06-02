@@ -21,7 +21,7 @@ export const cleanDir = (dirPath: string, shouldRmdir = false): void => {
  */
 export const calcHash = (opts: Options): string => {
   const hash = crypto.createHash('md5');
-  opts.files.forEach(
+  opts.srcFiles.forEach(
     (file): void => {
       hash.update(fs.readFileSync(file, 'utf8'));
     }

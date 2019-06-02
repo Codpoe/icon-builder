@@ -11,7 +11,8 @@ export interface FormatOptions {
 export interface Options {
   src?: string;
   out: string | false;
-  files: string[];
+  srcFiles: string[];
+  outFiles: string[];
   fontName: string;
   fontHeight: number;
   classPrefix: string;

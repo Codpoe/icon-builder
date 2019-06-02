@@ -14,10 +14,10 @@ if (fs.existsSync(out)) {
 }
 
 const options = {
-  fontName: 'manual',
+  fontName: 'hello-world',
   src: 'test/icons/*.svg',
   out,
-  classPrefix: 'manual-icon-',
+  classPrefix: 'hw-icon-',
   html: { out: true },
 };
 

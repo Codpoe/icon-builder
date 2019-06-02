@@ -54,7 +54,7 @@ const gens: { [key in FontType]: Gen } = {
               }
             );
 
-          opts.files.forEach(
+          opts.srcFiles.forEach(
             (file: string, index: number): void => {
               const glyph: any = fs.createReadStream(file); // eslint-disable-line @typescript-eslint/no-explicit-any
               const name = (opts.names as string[])[index];

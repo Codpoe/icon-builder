@@ -23,7 +23,8 @@ const DEFAULT_OPTIONS: Options = {
   out: false,
   classPrefix: 'icon-',
   hash: true,
-  files: [],
+  srcFiles: [],
+  outFiles: [],
   css: {
     out: true,
     template: TEMPLATES.css,
@@ -47,9 +48,12 @@ const DEFAULT_OPTIONS: Options = {
   centerHorizontally: true,
 };
 
-const writeFile = (filePath: string, content: string | Buffer): void => {
+const writeFile = (filePath: string, content: string | Buffer, opts: Options): void => {
   mkdirp.sync(path.dirname(filePath));
   fs.writeFileSync(filePath, content);
+
+  // record the absolute path of output file
+  opts.outFiles.push(path.resolve(filePath));
 };
 
 const writeResult = (fonts: FontsResult, opts: Options): void => {
@@ -59,7 +63,7 @@ const writeResult = (fonts: FontsResult, opts: Options): void => {
   Object.keys(fonts).forEach(
     (key): void => {
       const filePath = path.join(opts.out as string, `${opts.fontName}${opts.hash ? `_${hashStr}` : ''}.${key}`);
-      writeFile(filePath, fonts[key as FontType] as string | Buffer);
+      writeFile(filePath, fonts[key as FontType] as string | Buffer, opts);
     }
   );
 
@@ -72,7 +76,7 @@ const writeResult = (fonts: FontsResult, opts: Options): void => {
       out = path.join(out, `${opts.fontName}.css`);
     }
 
-    writeFile(out, css);
+    writeFile(out, css, opts);
   }
 
   if (opts.html.out) {
@@ -84,7 +88,7 @@ const writeResult = (fonts: FontsResult, opts: Options): void => {
       out = path.join(out, `${opts.fontName}.html`);
     }
 
-    writeFile(out, html);
+    writeFile(out, html, opts);
   }
 };
 
@@ -101,8 +105,8 @@ export default async (options: Partial<Options>): Promise<FontsResult> => {
     throw new Error('Option "src" is invalid.');
   }
 
-  opts.files = files.filter((file): boolean => file.endsWith('.svg'));
-  opts.names = opts.files.map(opts.rename);
+  opts.srcFiles = files.filter((file): boolean => file.endsWith('.svg'));
+  opts.names = opts.srcFiles.map(opts.rename);
 
   if (opts.out) {
     if (opts.css.out === true) {
