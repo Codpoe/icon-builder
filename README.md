@@ -1,10 +1,10 @@
-# iconfont generator
+# iconfont
 
 ![CircleCI](https://img.shields.io/circleci/build/github/Codpoe/iconfont.svg)
 ![David](https://img.shields.io/david/codpoe/iconfont.svg)
 ![npm (scoped)](https://img.shields.io/npm/v/@codpoe/iconfont.svg)
 
-Fork from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
+An iconfont generator, forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
 
 - 🎉Support `svg`, `ttf`, `woff`, `woff2`, `eot`
 - 🥊Develop with TypeScript
@@ -17,15 +17,16 @@ yarn add @codpoe/iconfont
 ```
 
 ## Usage
-```
+```js
 import iconfont from '@codpoe/iconfont';
 
-async () => {
+(async () => {
   const result = await iconfont({
+    fontName: 'helloworld',
     src: 'icons/*.svg',
-    output: 'icons-output',
+    out: 'icons-output',
   });
-}();
+})();
 ```
 
 ## Options
