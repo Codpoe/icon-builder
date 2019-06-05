@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as handlebars from 'handlebars';
 import * as prettier from 'prettier';
 
-import { Options, FontType, UrlTemplate, UrlMap } from './types/index';
+import { ToFontsOptions, FontType, UrlTemplate, UrlMap } from './types/index';
 
 const urlTemplates: { [key in FontType]: UrlTemplate } = {
   eot: ({ url }): string => `url("${url}?#iefix") format("embedded-opentype")`,
@@ -13,7 +13,7 @@ const urlTemplates: { [key in FontType]: UrlTemplate } = {
   svg: ({ url, fontName }): string => `url("${url}#${fontName}") format("svg")`,
 };
 
-const makeUrlMap = (opts: Options, hashStr?: string): UrlMap => {
+const makeUrlMap = (opts: ToFontsOptions, hashStr?: string): UrlMap => {
   const res: UrlMap = {};
   const cssFontsUrl = path.relative(path.dirname(opts.css.out as string), opts.out as string);
 
@@ -27,7 +27,7 @@ const makeUrlMap = (opts: Options, hashStr?: string): UrlMap => {
   return res;
 };
 
-const makeSrc = (opts: Options, urls: UrlMap): string => {
+const makeSrc = (opts: ToFontsOptions, urls: UrlMap): string => {
   const src = opts.types
     .filter((type): boolean => !!urls[type])
     .map(
@@ -44,7 +44,7 @@ const makeSrc = (opts: Options, urls: UrlMap): string => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const makeCtx = (opts: Options, urls: UrlMap): Record<string, any> => {
+const makeCtx = (opts: ToFontsOptions, urls: UrlMap): Record<string, any> => {
   const codepoints: { [key: string]: string } = {};
 
   // Transform codepoints to hex strings
@@ -63,7 +63,7 @@ const makeCtx = (opts: Options, urls: UrlMap): Record<string, any> => {
   };
 };
 
-const renderCss = (opts: Options, urlMapOrHash?: UrlMap | string): string => {
+const renderCss = (opts: ToFontsOptions, urlMapOrHash?: UrlMap | string): string => {
   let urlMap: UrlMap;
 
   if (typeof urlMapOrHash !== 'object') {

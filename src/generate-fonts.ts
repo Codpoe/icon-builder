@@ -7,14 +7,14 @@ import ttf2woff2 from 'ttf2woff2';
 import ttf2eot from 'ttf2eot';
 
 import { FontType, FontsResult, Gen } from './types/index';
-import { Options } from './types/index';
+import { ToFontsOptions } from './types/index';
 
 /**
  * Generators for files of different font types.
  */
 const gens: { [key in FontType]: Gen } = {
   svg: {
-    async fn(opts: Options): Promise<string> {
+    async fn(opts: ToFontsOptions): Promise<string> {
       let svgContent = '';
 
       const svgOpts = _.pick(opts, [
@@ -81,7 +81,7 @@ const gens: { [key in FontType]: Gen } = {
   },
 
   // _svg: {
-  //   fn(options: Options, done) {
+  //   fn(options: ToFontsOptions, done) {
   //     let font = new Buffer(0);
   //     let svgOptions = _.pick(options,
   //       'fontName', 'fontHeight', 'descent', 'normalize', 'round');
@@ -121,7 +121,7 @@ const gens: { [key in FontType]: Gen } = {
 
   ttf: {
     deps: ['svg'],
-    async fn(opts: Options, depsFonts: (string | Buffer)[]): Promise<Buffer> {
+    async fn(opts: ToFontsOptions, depsFonts: (string | Buffer)[]): Promise<Buffer> {
       const font = svg2ttf(depsFonts[0] as string, opts.formatOptions.ttf);
       return Buffer.from(font.buffer);
     },
@@ -129,7 +129,7 @@ const gens: { [key in FontType]: Gen } = {
 
   woff: {
     deps: ['ttf'],
-    async fn(opts: Options, depsFonts: (string | Buffer)[]): Promise<Buffer> {
+    async fn(opts: ToFontsOptions, depsFonts: (string | Buffer)[]): Promise<Buffer> {
       const font = ttf2woff(new Uint8Array(depsFonts[0] as Buffer), opts.formatOptions.woff);
       return Buffer.from(font.buffer);
     },
@@ -137,7 +137,7 @@ const gens: { [key in FontType]: Gen } = {
 
   woff2: {
     deps: ['ttf'],
-    async fn(opts: Options, depsFonts: (string | Buffer)[]): Promise<Buffer> {
+    async fn(opts: ToFontsOptions, depsFonts: (string | Buffer)[]): Promise<Buffer> {
       const font = ttf2woff2(new Uint8Array(depsFonts[0] as Buffer), opts.formatOptions.woff2);
       return Buffer.from(font.buffer);
     },
@@ -145,7 +145,7 @@ const gens: { [key in FontType]: Gen } = {
 
   eot: {
     deps: ['ttf'],
-    async fn(opts: Options, depsFonts: (string | Buffer)[]): Promise<Buffer> {
+    async fn(opts: ToFontsOptions, depsFonts: (string | Buffer)[]): Promise<Buffer> {
       const font = ttf2eot(new Uint8Array(depsFonts[0] as Buffer), opts.formatOptions.eot);
       return Buffer.from(font.buffer);
     },
@@ -155,7 +155,7 @@ const gens: { [key in FontType]: Gen } = {
 /**
  * @returns Promise
  */
-const generateFonts = async (opts: Options): Promise<FontsResult> => {
+const generateFonts = async (opts: ToFontsOptions): Promise<FontsResult> => {
   const genTasks: Record<string, Promise<string | Buffer>> = {};
 
   /**

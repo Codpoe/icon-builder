@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 const path = require('path');
-const iconfont = require('../lib/index');
+const { toFonts } = require('../lib/index');
 
 const out = 'test/temp';
 
@@ -23,7 +23,7 @@ const options = {
 
 (async () => {
   try {
-    await iconfont.default(options);
+    await toFonts(options);
     console.log('Done!');
   } catch (err) {
     console.log('Fail!', err);

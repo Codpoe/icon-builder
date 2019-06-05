@@ -31,6 +31,8 @@
     "url": "https://github.com/Codpoe/iconfont/issues"
   },
   "dependencies": {
+    "camelcase": "^5.3.1",
+    "cheerio": "^1.0.0-rc.3",
     "glob": "^7.1.4",
     "handlebars": "^4.0.5",
     "lodash": "^4.17.11",
@@ -41,19 +43,22 @@
     "ttf2eot": "^2.0.0",
     "ttf2woff": "^2.0.1",
     "ttf2woff2": "^2.0.3",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-typescript": "^7.3.3",
+    "@types/cheerio": "^0.22.11",
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.6",
     "@types/lodash": "^4.14.121",
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^11.11.6",
     "@types/prettier": "^1.16.4",
+    "@types/uppercamelcase": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.14.1",

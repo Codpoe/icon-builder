@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
 
-import { Options } from './types/index';
+import { ToFontsOptions } from './types/index';
 
 export const cleanDir = (dirPath: string, shouldRmdir = false): void => {
   if (!fs.existsSync(dirPath)) {
@@ -19,7 +19,7 @@ export const cleanDir = (dirPath: string, shouldRmdir = false): void => {
 /**
  * Caclulates hash based on options and source SVG files
  */
-export const calcHash = (opts: Options): string => {
+export const calcHash = (opts: ToFontsOptions): string => {
   const hash = crypto.createHash('md5');
   opts.srcFiles.forEach(
     (file): void => {

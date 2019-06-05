@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import iconfont from '../lib/index';
+import { toFonts } from '../lib/index';
 
 describe('iconfont', () => {
   const SRC = path.join(__dirname, 'icons/*.svg');
@@ -31,7 +31,7 @@ describe('iconfont', () => {
   });
 
   it('returns object with fonts and function generateCSS()', async () => {
-    const result = await iconfont(OPTIONS);
+    const result = await toFonts(OPTIONS);
 
     expect(result).toHaveProperty('svg');
     expect(result).toHaveProperty('ttf');
@@ -45,7 +45,7 @@ describe('iconfont', () => {
   });
 
   it('generates all fonts and css files', async () => {
-    const { options } = await iconfont(OPTIONS);
+    const { options } = await toFonts(OPTIONS);
 
     TYPES.forEach(type => {
       const file = path.join(OUT, `${FONT_NAME}_${options.hashStr}.${type}`);
@@ -65,7 +65,7 @@ describe('iconfont', () => {
   });
 
   it('generates html file when options.html.out is true', async () => {
-    const { options } = await iconfont({ ...OPTIONS, html: { out: true } });
+    const { options } = await toFonts({ ...OPTIONS, html: { out: true } });
 
     const htmlFile = path.resolve(OUT, `${FONT_NAME}.html`);
     expect(options.outFiles.indexOf(htmlFile)).toBeGreaterThanOrEqual(0);
@@ -75,7 +75,7 @@ describe('iconfont', () => {
 
   it('generates css file with custom name in other output', async () => {
     const cssFile = path.join(__dirname, 'out-2/your-icon.css');
-    const { options } = await iconfont({ ...OPTIONS, css: { out: cssFile } });
+    const { options } = await toFonts({ ...OPTIONS, css: { out: cssFile } });
 
     expect(options.outFiles.indexOf(path.resolve(cssFile))).toBeGreaterThanOrEqual(0);
     expect(fs.existsSync(cssFile)).toBeTruthy(); // html file exists
@@ -85,7 +85,7 @@ describe('iconfont', () => {
   it('generates html file with custom name in other output', async () => {
     const htmlFile = path.join(__dirname, 'out-2/your-icon.html');
 
-    const { options } = await iconfont({ ...OPTIONS, html: { out: htmlFile } });
+    const { options } = await toFonts({ ...OPTIONS, html: { out: htmlFile } });
 
     expect(options.outFiles.indexOf(path.resolve(htmlFile))).toBeGreaterThanOrEqual(0);
     expect(fs.existsSync(htmlFile)).toBeTruthy(); // html file exists
@@ -93,7 +93,7 @@ describe('iconfont', () => {
   });
 
   it('function generateCss can change urls', async () => {
-    const result = await iconfont(OPTIONS);
+    const result = await toFonts(OPTIONS);
     const urls = {
       svg: 'AAA',
       ttf: 'BBB',
@@ -109,7 +109,7 @@ describe('iconfont', () => {
 
     expect.assertions(1);
     try {
-      await iconfont(options);
+      await toFonts(options);
     } catch (err) {
       expect(err.message).toMatch('src');
     }
@@ -128,7 +128,7 @@ describe('iconfont', () => {
 
     const {
       options: { hashStr },
-    } = await iconfont(options);
+    } = await toFonts(options);
 
     const svg = fs.readFileSync(path.join(OUT, `${FONT_NAME}_${hashStr}.svg`), 'utf8');
     const isCodepointInSvg = codepoint => {
@@ -150,7 +150,7 @@ describe('iconfont', () => {
       },
     };
 
-    await iconfont(options);
+    await toFonts(options);
     const cssFile = fs.readFileSync(path.join(OUT, `${FONT_NAME}.css`), 'utf8');
     expect(cssFile).toMatch(RENDERED_TEMPLATE);
   });
@@ -165,7 +165,7 @@ describe('iconfont', () => {
       },
     };
 
-    await iconfont(options);
+    await toFonts(options);
     const htmlFile = fs.readFileSync(path.join(OUT, `${FONT_NAME}.html`), 'utf8');
     expect(htmlFile).toMatch(RENDERED_TEMPLATE);
   });

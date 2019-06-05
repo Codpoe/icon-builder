@@ -2,10 +2,10 @@ import * as fs from 'fs';
 import * as handlebars from 'handlebars';
 import * as prettier from 'prettier';
 
-import renderCss from './renderCss';
-import { Options } from './types/index';
+import renderCss from './render-css';
+import { ToFontsOptions } from './types/index';
 
-const renderHtml = (opts: Options, hashStr?: string): string => {
+const renderHtml = (opts: ToFontsOptions, hashStr?: string): string => {
   const source = fs.readFileSync(opts.html.template as string, 'utf8');
   const template = handlebars.compile(source);
 

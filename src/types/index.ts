@@ -8,7 +8,7 @@ export interface FormatOptions {
   eot?: object;
 }
 
-export interface Options {
+export interface ToFontsOptions {
   src?: string;
   out: string | false;
   srcFiles: string[];
@@ -45,14 +45,19 @@ export interface FontsResult {
   woff2?: Buffer;
   ttf?: Buffer;
   generateCss?: (urlMap: UrlMap) => string;
-  options?: Options;
+  options?: ToFontsOptions;
 }
 
 export interface Gen {
   deps?: FontType[];
-  fn: (options: Options, depsFonts: (string | Buffer)[]) => Promise<string | Buffer>;
+  fn: (options: ToFontsOptions, depsFonts: (string | Buffer)[]) => Promise<string | Buffer>;
 }
 
 export type UrlTemplate = (opts: { url: string; fontName?: string }) => string;
 
 export type UrlMap = Partial<{ [index in FontType]: string }>;
+
+export interface ToReactOptions {
+  src: string;
+  out: string;
+}
