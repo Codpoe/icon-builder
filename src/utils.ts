@@ -29,3 +29,12 @@ export const calcHash = (opts: ToFontsOptions): string => {
   hash.update(JSON.stringify(opts));
   return hash.digest('hex');
 };
+
+export const camelCase = (input: string): string => {
+  return input.replace(/[_\-]+(\w)/g, (_, p1: string): string => p1.toUpperCase());
+};
+
+export const upperCamelCase = (input: string): string => {
+  const cased = camelCase(input);
+  return `${cased.charAt(0).toUpperCase()}${cased.slice(1)}`;
+};

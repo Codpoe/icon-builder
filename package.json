@@ -11,7 +11,8 @@
     "build:js": "npx babel src --out-dir lib --extensions .ts --source-maps inline",
     "build:types": "npx tsc --emitDeclarationOnly",
     "test": "npx jest",
-    "test:temp": "node test/manual.js"
+    "test:fonts": "node test/fonts.manual.js",
+    "test:react": "node test/react.manual.js"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,6 @@
     "url": "https://github.com/Codpoe/iconfont/issues"
   },
   "dependencies": {
-    "camelcase": "^5.3.1",
     "cheerio": "^1.0.0-rc.3",
     "glob": "^7.1.4",
     "handlebars": "^4.0.5",
@@ -43,8 +43,7 @@
     "ttf2eot": "^2.0.0",
     "ttf2woff": "^2.0.1",
     "ttf2woff2": "^2.0.3",
-    "typescript": "^3.3.3333",
-    "uppercamelcase": "^3.0.0"
+    "typescript": "^3.3.3333"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -58,7 +57,6 @@
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^11.11.6",
     "@types/prettier": "^1.16.4",
-    "@types/uppercamelcase": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.14.1",

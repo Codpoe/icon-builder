@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { toFonts } from '../lib/index';
 
-describe('iconfont', () => {
+describe('toFonts', () => {
   const SRC = path.join(__dirname, 'icons/*.svg');
   const OUT = path.join(__dirname, 'out');
   const TYPES = ['ttf', 'woff', 'woff2', 'eot', 'svg'];

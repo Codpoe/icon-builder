@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as glob from 'glob';
-import * as camelcase from 'camelcase';
-import * as uppercamelcase from 'uppercamelcase';
+import * as mkdirp from 'mkdirp';
 import * as cheerio from 'cheerio';
 import * as prettier from 'prettier';
+import { camelCase, upperCamelCase } from './utils';
 
 import { ToReactOptions } from './types/index';
 
@@ -28,8 +28,12 @@ const parseSvg = (svg: string): CheerioStatic => {
         (name): void => {
           if (name.includes('-')) {
             $(el)
-              .attr(camelcase(name), el.attribs[name])
+              .attr(camelCase(name), el.attribs[name])
               .removeAttr(name);
+          }
+
+          if (name.includes('xmlns:')) {
+            $(el).removeAttr(name);
           }
 
           if (name === 'stroke') {
@@ -39,7 +43,11 @@ const parseSvg = (svg: string): CheerioStatic => {
       );
 
       if (el.name === 'svg') {
-        $(el).attr('otherProps', '...');
+        $(el).attr('restProps', '...');
+      }
+
+      if (el.name === 'title' || el.name === 'desc') {
+        $(el).remove();
       }
     }
   );
@@ -51,17 +59,19 @@ const getComponent = ($: CheerioStatic, componentName: string): string => {
   const component = `
     import React from 'react';
     import PropTypes from 'prop-types';
+
     const ${componentName} = (props) => {
-      const { color, size, ...otherProps } = props;
+      const { color, size, ...restProps } = props;
       return (
         ${$('svg')
           .toString()
-          .replace(new RegExp('stroke="currentColor"', 'g'), 'stroke={color}')
-          .replace('width="24"', 'width={size}')
-          .replace('height="24"', 'height={size}')
-          .replace('otherProps="..."', '{...otherProps}')}
+          .replace(/stroke="currentColor"/g, 'stroke={color}')
+          .replace(/width=".*?"/, 'width={size}')
+          .replace(/height=".*?"/, 'height={size}')
+          .replace('restProps="..."', '{...restProps}')}
       )
     };
+
     ${componentName}.propTypes = {
       color: PropTypes.string,
       size: PropTypes.oneOfType([
@@ -69,10 +79,12 @@ const getComponent = ($: CheerioStatic, componentName: string): string => {
         PropTypes.number
       ]),
     }
+
     ${componentName}.defaultProps = {
       color: 'currentColor',
       size: '24',
     }
+
     export default ${componentName}
   `;
 
@@ -85,11 +97,21 @@ const getComponent = ($: CheerioStatic, componentName: string): string => {
 };
 
 export default async (opts: ToReactOptions): Promise<void> => {
+  if (!opts.src) {
+    throw new Error('src is invalid');
+  }
+
+  if (!opts.out) {
+    throw new Error('out is invalid');
+  }
+
   const icons = glob.sync(opts.src);
 
   if (!icons) {
     throw new Error('src is invalid');
   }
+
+  mkdirp.sync(opts.out);
 
   const indexPath = path.join(opts.out, 'index.js');
   const indexTypePath = path.join(opts.out, 'index.d.ts');
@@ -100,11 +122,11 @@ export default async (opts: ToReactOptions): Promise<void> => {
   icons.forEach(
     (icon): void => {
       let name = path.basename(icon, '.svg');
-      name = name === 'github' ? 'GitHub' : uppercamelcase(name);
+      name = name === 'github' ? 'GitHub' : upperCamelCase(name);
 
       const $ = parseSvg(fs.readFileSync(icon, 'utf-8'));
       const component = getComponent($, name);
-      const exportStr = `export ${name} from './icons/${name}';\r\n`;
+      const exportStr = `export ${name} from './${name}';\r\n`;
       const exportTypeStr = `export const ${name}: Icon;\n`;
 
       fs.writeFileSync(path.join(opts.out, `${name}.js`), component, 'utf-8');
