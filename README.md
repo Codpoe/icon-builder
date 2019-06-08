@@ -1,8 +1,8 @@
 # icon-builder
 
-![CircleCI](https://img.shields.io/circleci/build/github/Codpoe/iconfont.svg)
-![David](https://img.shields.io/david/codpoe/iconfont.svg)
-![npm (scoped)](https://img.shields.io/npm/v/@codpoe/iconfont.svg)
+![CircleCI](https://img.shields.io/circleci/build/github/Codpoe/icon-builder.svg)
+![David](https://img.shields.io/david/codpoe/icon-builder.svg)
+![npm](https://img.shields.io/npm/v/icon-builder.svg)
 
 An icon builder, forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
 
