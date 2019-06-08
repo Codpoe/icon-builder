@@ -1,7 +1,7 @@
 {
-  "name": "@codpoe/iconfont",
-  "version": "0.0.6",
-  "description": "Generator of webfonts from svg icons",
+  "name": "icon-builder",
+  "version": "1.0.1",
+  "description": "Builder of iconfont / icon-components from svg icons",
   "main": "lib/index.js",
   "scripts": {
     "bootstrap": "yarn || npm",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Codpoe/iconfont.git"
+    "url": "https://github.com/Codpoe/icon-builder.git"
   },
   "keywords": [
     "font",
@@ -29,7 +29,7 @@
   "author": "codpoe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Codpoe/iconfont/issues"
+    "url": "https://github.com/Codpoe/icon-builder/issues"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",

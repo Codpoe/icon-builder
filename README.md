@@ -1,27 +1,28 @@
-# iconfont
+# icon-builder
 
 ![CircleCI](https://img.shields.io/circleci/build/github/Codpoe/iconfont.svg)
 ![David](https://img.shields.io/david/codpoe/iconfont.svg)
 ![npm (scoped)](https://img.shields.io/npm/v/@codpoe/iconfont.svg)
 
-An iconfont generator, forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
+An icon builder, forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
 
 - 🎉Support `svg`, `ttf`, `woff`, `woff2`, `eot`
+- 💥Covert svg icons to react components
 - 🥊Develop with TypeScript
 - ✅Pass test
 - 👀Friendly preview
 
 ## Install
 ```
-yarn add @codpoe/iconfont
+yarn add icon-builder
 ```
 
-## Usage
+## iconfont
 ```js
-import iconfont from '@codpoe/iconfont';
+import { toFonts } from 'icon-builder';
 
 (async () => {
-  const result = await iconfont({
+  const result = await toFonts({
     fontName: 'helloworld',
     src: 'icons/*.svg',
     out: 'icons-output',
@@ -29,7 +30,7 @@ import iconfont from '@codpoe/iconfont';
 })();
 ```
 
-## Options
+### Options
 
 | option | type | default | description |
 |---|---|---|---|
@@ -61,8 +62,20 @@ About `out`:
 
 By default, `css.out` is `true`, `html.out` is `false`.
 
+## react components
+```js
+import { toReact } from 'icon-builder';
+
+(async () => {
+  await toReact({
+    src: 'icons/*.svg',
+    out: 'icons-output',
+  });
+})();
+```
+
 ## Note
 
-Before generating the iconfont, it's best to convert the svg icons from stroke to fill.
+Before building the iconfont, it's best to convert the svg icons from stroke to fill.
 
 For example, sketch / layer / convert to outlines.
