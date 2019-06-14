@@ -60,4 +60,5 @@ export type UrlMap = Partial<{ [index in FontType]: string }>;
 export interface ToReactOptions {
   src: string;
   out: string;
+  ts: boolean;
 }
