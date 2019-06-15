@@ -41,7 +41,7 @@ export default async (opts: ToReactOptions): Promise<void> => {
   );
 
   const exportAny = iconNames.map((name): string => `export * from './${name}';`).join('\n');
-  const exportIcon = iconNames.map((name): string => `export ${name} from './${name}';`).join('\n');
+  const exportIcon = iconNames.map((name): string => `export { default as ${name} } from './${name}';`).join('\n');
   const content = opts.ts ? `${exportAny}\n\n${exportIcon}\n` : `${exportIcon}\n`;
 
   fs.writeFileSync(path.join(opts.out, `index.${ext}`), content, 'utf-8');
