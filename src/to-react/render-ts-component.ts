@@ -8,6 +8,8 @@ export default ($: CheerioStatic, name: string): string => {
     export interface ${name}Props extends React.SVGAttributes<SVGElement> {
       color?: string;
       size?: string | number;
+      className?: string;
+      style?: React.CSSProperties;
     }
 
     const ${name}: React.SFC<${name}Props> = (props: ${name}Props): React.ReactElement => {
@@ -19,7 +21,7 @@ export default ($: CheerioStatic, name: string): string => {
 
     ${name}.defaultProps = {
       color: 'currentColor',
-      size: '24',
+      size: '1em',
     }
 
     export default ${name};

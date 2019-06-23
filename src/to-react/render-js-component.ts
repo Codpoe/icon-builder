@@ -23,7 +23,7 @@ export default ($: CheerioStatic, name: string): string => {
 
     ${name}.defaultProps = {
       color: 'currentColor',
-      size: '24',
+      size: '1em',
     }
 
     export default ${name};
