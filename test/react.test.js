@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { toReact } from '../lib/index';
+import { toReact } from '../src/index';
 
 describe('toReact', () => {
   const src = path.join(__dirname, 'icons/*.svg');

@@ -4,5 +4,6 @@ node_modules
 yarn-error.log
 lib
 es
+types
 test/out*
 test/temp*

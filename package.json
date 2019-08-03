@@ -3,16 +3,22 @@
   "version": "1.1.2",
   "description": "Builder of iconfont / icon-components from svg icons",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
   "scripts": {
     "bootstrap": "yarn || npm",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run bootstrap && npm run build:js && npm run build:types",
-    "build:js": "npx babel src --out-dir lib --extensions .ts --source-maps inline",
-    "build:types": "npx tsc --emitDeclarationOnly",
-    "test": "npx jest",
+    "build:lib": "rm -rf lib && babel src --out-dir lib --extensions .ts",
+    "build:types": "rm -rf types && tsc --emitDeclarationOnly",
+    "build": "npm run build:lib && npm run build:types",
+    "test": "jest",
     "test:fonts": "node test/fonts.manual.js",
-    "test:react": "node test/react.manual.js"
+    "test:react": "node test/react.manual.js",
+    "release": "./release.sh"
   },
   "repository": {
     "type": "git",
@@ -32,6 +38,7 @@
     "url": "https://github.com/Codpoe/icon-builder/issues"
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "^7.5.5",
     "cheerio": "^1.0.0-rc.3",
     "glob": "^7.1.4",
     "handlebars": "^4.0.5",
@@ -48,6 +55,7 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-typescript": "^7.3.3",
     "@types/cheerio": "^0.22.11",

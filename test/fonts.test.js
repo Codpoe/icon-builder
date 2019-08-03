@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { toFonts } from '../lib/index';
+import { toFonts } from '../src/index';
 
 describe('toFonts', () => {
   const SRC = path.join(__dirname, 'icons/*.svg');
