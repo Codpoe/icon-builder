@@ -18,7 +18,7 @@
     "test": "jest",
     "test:fonts": "node test/fonts.manual.js",
     "test:react": "node test/react.manual.js",
-    "release": "./release.sh"
+    "release": "sh ./release.sh"
   },
   "repository": {
     "type": "git",
