@@ -5,4 +5,5 @@ export default ($: CheerioStatic): string =>
     .replace(/width=".*?"/, 'width={size}')
     .replace(/height=".*?"/, 'height={size}')
     .replace(/class=/, 'className=')
+    .replace('style=""', `style={{ verticalAlign: 'middle', ...style }}`)
     .replace('restProps="..."', '{...restProps}');

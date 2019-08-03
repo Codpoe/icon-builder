@@ -27,6 +27,7 @@ export default (svg: string): CheerioStatic => {
       );
 
       if (el.name === 'svg') {
+        $(el).attr('style', '');
         $(el).attr('restProps', '...');
       }
 

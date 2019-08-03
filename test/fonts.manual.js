@@ -24,8 +24,8 @@ const options = {
 (async () => {
   try {
     await toFonts(options);
-    console.log('Done!');
+    console.log('Done!'); // eslint-disable-line no-console
   } catch (err) {
-    console.log('Fail!', err);
+    console.log('Fail!', err); // eslint-disable-line no-console
   }
 })();

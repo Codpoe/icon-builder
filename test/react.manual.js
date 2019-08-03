@@ -16,8 +16,8 @@ if (fs.existsSync(out)) {
 (async () => {
   try {
     await toReact({ src: 'test/icons/*.svg', out, ts: true });
-    console.log('Done!');
+    console.log('Done!'); // eslint-disable-line no-console
   } catch (err) {
-    console.log('Fail!', err);
+    console.log('Fail!', err); // eslint-disable-line no-console
   }
 })();

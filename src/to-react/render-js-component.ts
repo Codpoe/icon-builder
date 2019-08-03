@@ -7,7 +7,7 @@ export default ($: CheerioStatic, name: string): string => {
     import PropTypes from 'prop-types'
 
     const ${name} = props => {
-      const { color, size, ...restProps } = props;
+      const { color, size, style, ...restProps } = props;
       return (
         ${renderSvg($)}
       )
