@@ -38,7 +38,7 @@
     "url": "https://github.com/Codpoe/icon-builder/issues"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
     "cheerio": "^1.0.0-rc.3",
     "glob": "^7.1.4",
     "handlebars": "^4.0.5",

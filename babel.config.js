@@ -4,16 +4,12 @@ module.exports = {
       '@babel/preset-env',
       {
         loose: true,
+        targets: {
+          node: 8,
+        },
       },
     ],
     '@babel/preset-typescript',
   ],
-  plugins: [
-    [
-      '@babel/plugin-transform-runtime',
-      {
-        corejs: 3,
-      },
-    ],
-  ],
+  plugins: ['@babel/plugin-transform-runtime'],
 };
