@@ -51,7 +51,7 @@ import { toFonts } from 'icon-builder';
 ```js
 {
   out: true, // string | boolean
-  template: TEMPLATES.css / TEMPLATE.html,
+  template: 'path/to/the/template.hbs',
   options: {},
 }
 ```
@@ -61,6 +61,12 @@ About `out`:
 - `false`: no emit css / html file.
 
 By default, `css.out` is `true`, `html.out` is `false`.
+
+About `template`:
+Templates must be coded in [Handlebars](https://handlebarsjs.com) (`.hbs`) format. See [`templates` folder](https://github.com/Codpoe/icon-builder/tree/master/templates) as a reference.
+
+About `options`:
+This is any extra data passed to the Handlebars template set in `template`.
 
 ## React components
 ```js
