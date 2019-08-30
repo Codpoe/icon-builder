@@ -13,11 +13,13 @@ An icon builder forked from [webfonts-generator](https://github.com/sunflowerdea
 - 👀 Generates a friendly preview in HTML
 
 ## Install
-```
-yarn add icon-builder
+
+```sh
+$ yarn add icon-builder
 ```
 
 ## Usage
+
 ```js
 import { toFonts } from 'icon-builder';
 
@@ -48,6 +50,7 @@ import { toFonts } from 'icon-builder';
 | html | `object` | | HTML config |
 
 ### css / html config
+
 ```js
 {
   out: true, // string | boolean
@@ -55,6 +58,7 @@ import { toFonts } from 'icon-builder';
   options: {},
 }
 ```
+
 #### `out`
 
 - `string`: The output path of CSS/HTML file.
@@ -76,6 +80,7 @@ This is any extra data passed to the Handlebars template set in `template`.
 This is optional.
 
 ## React components
+
 ```js
 import { toReact } from 'icon-builder';
 
@@ -89,6 +94,6 @@ import { toReact } from 'icon-builder';
 
 ## Note
 
-Before building the icon font, it is best to convert the SVG icons from stroke to fill.
+Before building the icon font, it is recommended to convert the SVG icons from stroke to fill.
 
-For example: Sketch > Layer > Convert to outlines
+For example: *Sketch* > *Layer* > *Convert to outlines*
