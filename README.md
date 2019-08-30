@@ -55,7 +55,7 @@ import { toFonts } from 'icon-builder';
   options: {},
 }
 ```
-About `out`:
+#### `out`
 
 - `string`: the output path of css / html file.
 - `true`: the output path is the same as the fonts path.
@@ -63,13 +63,13 @@ About `out`:
 
 By default, `css.out` is `true`, `html.out` is `false`.
 
-About `template`:
+#### `template`
 
 Templates must be coded in [Handlebars](https://handlebarsjs.com) (`.hbs`) format. See [`templates` folder](https://github.com/Codpoe/icon-builder/tree/master/templates) as a reference.
 
 This is optional.
 
-About `options`:
+#### `options`
 
 This is any extra data passed to the Handlebars template set in `template`.
 
