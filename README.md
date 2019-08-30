@@ -4,7 +4,7 @@
 ![David](https://img.shields.io/david/codpoe/icon-builder.svg)
 ![npm](https://img.shields.io/npm/v/icon-builder.svg)
 
-An icon builder, forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
+An icon builder forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator).
 
 - 🎉 Supports: `svg`, `ttf`, `woff`, `woff2`, `eot`
 - 💥 Converts SVG icons to React components
@@ -34,18 +34,18 @@ import { toFonts } from 'icon-builder';
 
 | option | type | default | description |
 |---|---|---|---|
-| src | `string` | | required |
+| src | `string` | | Required |
 | out | `string` / `false` | `false` | |
 | fontName | `string` | `'iconfont'` | |
 | classPrefix | `string` | `'icon-'` | |
-| hash | `boolean` | `true` | use hash |
-| types | `array` | `['svg', 'ttf', 'eot', 'woff', 'woff2']` | font types |
+| hash | `boolean` | `true` | Use hash |
+| types | `array` | `['svg', 'ttf', 'eot', 'woff', 'woff2']` | Font types |
 | startCodepoint | `number` | `0xf101` | |
-| codepoints | `object` | `{}` | unicode start |
+| codepoints | `object` | `{}` | Unicode start |
 | normalize | `boolean` | `true` | |
 | centerHorizontally | `boolean` | `true` | |
-| css | `object` | | css config |
-| html | `object` | | html config |
+| css | `object` | | CSS config |
+| html | `object` | | HTML config |
 
 ### css / html config
 ```js
