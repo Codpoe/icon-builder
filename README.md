@@ -6,18 +6,18 @@
 
 An icon builder, forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
 
-- 🎉Support `svg`, `ttf`, `woff`, `woff2`, `eot`
-- 💥Covert svg icons to react components
-- 🥊Develop with TypeScript
-- ✅Pass test
-- 👀Friendly preview
+- 🎉 Supports: `svg`, `ttf`, `woff`, `woff2`, `eot`
+- 💥 Converts SVG icons to React components
+- 🥊 Developed with TypeScript
+- ✅ Passes all tests
+- 👀 Friendly preview
 
 ## Install
 ```
 yarn add icon-builder
 ```
 
-## iconfont
+## Usage
 ```js
 import { toFonts } from 'icon-builder';
 
@@ -62,7 +62,7 @@ About `out`:
 
 By default, `css.out` is `true`, `html.out` is `false`.
 
-## react components
+## React components
 ```js
 import { toReact } from 'icon-builder';
 
@@ -76,6 +76,6 @@ import { toReact } from 'icon-builder';
 
 ## Note
 
-Before building the iconfont, it's best to convert the svg icons from stroke to fill.
+Before building the icon font, it is best to convert the SVG icons from stroke to fill.
 
 For example, sketch / layer / convert to outlines.
