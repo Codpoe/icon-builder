@@ -10,7 +10,7 @@ An icon builder, forked from [webfonts-generator](https://github.com/sunflowerde
 - 💥 Converts SVG icons to React components
 - 🥊 Developed with TypeScript
 - ✅ Passes all tests
-- 👀 Friendly preview
+- 👀 Generates a friendly preview in HTML
 
 ## Install
 ```
