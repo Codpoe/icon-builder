@@ -67,9 +67,13 @@ About `template`:
 
 Templates must be coded in [Handlebars](https://handlebarsjs.com) (`.hbs`) format. See [`templates` folder](https://github.com/Codpoe/icon-builder/tree/master/templates) as a reference.
 
+This is optional.
+
 About `options`:
 
 This is any extra data passed to the Handlebars template set in `template`.
+
+This is optional.
 
 ## React components
 ```js
