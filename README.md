@@ -57,9 +57,9 @@ import { toFonts } from 'icon-builder';
 ```
 #### `out`
 
-- `string`: the output path of css / html file.
-- `true`: the output path is the same as the fonts path.
-- `false`: no emit css / html file.
+- `string`: The output path of CSS/HTML file.
+- `true`: The output path is the same as the fonts path (see `out` in [Options](#options)).
+- `false`: No emit CSS/HTML file.
 
 By default, `css.out` is `true`, `html.out` is `false`.
 
