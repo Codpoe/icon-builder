@@ -91,4 +91,4 @@ import { toReact } from 'icon-builder';
 
 Before building the icon font, it is best to convert the SVG icons from stroke to fill.
 
-For example, sketch / layer / convert to outlines.
+For example: Sketch > Layer > Convert to outlines
