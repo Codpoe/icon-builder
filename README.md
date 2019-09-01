@@ -4,20 +4,22 @@
 ![David](https://img.shields.io/david/codpoe/icon-builder.svg)
 ![npm](https://img.shields.io/npm/v/icon-builder.svg)
 
-An icon builder, forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator)
+An icon builder forked from [webfonts-generator](https://github.com/sunflowerdeath/webfonts-generator).
 
-- 🎉Support `svg`, `ttf`, `woff`, `woff2`, `eot`
-- 💥Covert svg icons to react components
-- 🥊Develop with TypeScript
-- ✅Pass test
-- 👀Friendly preview
+- 🎉 Supports: `svg`, `ttf`, `woff`, `woff2`, `eot`
+- 💥 Converts SVG icons to React components
+- 🥊 Developed with TypeScript
+- ✅ Passes all tests
+- 👀 Generates a friendly preview in HTML
 
 ## Install
-```
-yarn add icon-builder
+
+```sh
+$ yarn add icon-builder
 ```
 
-## iconfont
+## Usage
+
 ```js
 import { toFonts } from 'icon-builder';
 
@@ -34,35 +36,51 @@ import { toFonts } from 'icon-builder';
 
 | option | type | default | description |
 |---|---|---|---|
-| src | `string` | | required |
+| src | `string` | | Required |
 | out | `string` / `false` | `false` | |
 | fontName | `string` | `'iconfont'` | |
 | classPrefix | `string` | `'icon-'` | |
-| hash | `boolean` | `true` | use hash |
-| types | `array` | `['svg', 'ttf', 'eot', 'woff', 'woff2']` | font types |
+| hash | `boolean` | `true` | Use hash |
+| types | `array` | `['svg', 'ttf', 'eot', 'woff', 'woff2']` | Font types |
 | startCodepoint | `number` | `0xf101` | |
-| codepoints | `object` | `{}` | unicode start |
+| codepoints | `object` | `{}` | Unicode start |
 | normalize | `boolean` | `true` | |
 | centerHorizontally | `boolean` | `true` | |
-| css | `object` | | css config |
-| html | `object` | | html config |
+| css | `object` | | CSS config |
+| html | `object` | | HTML config |
 
 ### css / html config
+
 ```js
 {
   out: true, // string | boolean
-  template: TEMPLATES.css / TEMPLATE.html,
+  template: 'path/to/the/template.hbs',
   options: {},
 }
 ```
-About `out`:
-- `string`: the output path of css / html file.
-- `true`: the output path is the same as the fonts path.
-- `false`: no emit css / html file.
+
+#### `out`
+
+- `string`: The output path of CSS/HTML file.
+- `true`: The output path is the same as the fonts path (see `out` in [Options](#options)).
+- `false`: No emit CSS/HTML file.
 
 By default, `css.out` is `true`, `html.out` is `false`.
 
-## react components
+#### `template`
+
+Templates must be coded in [Handlebars](https://handlebarsjs.com) (`.hbs`) format. See [`templates` folder](https://github.com/Codpoe/icon-builder/tree/master/templates) as a reference.
+
+This is optional.
+
+#### `options`
+
+This is any extra data passed to the Handlebars template set in `template`.
+
+This is optional.
+
+## React components
+
 ```js
 import { toReact } from 'icon-builder';
 
@@ -76,6 +94,6 @@ import { toReact } from 'icon-builder';
 
 ## Note
 
-Before building the iconfont, it's best to convert the svg icons from stroke to fill.
+Before building the icon font, it is recommended to convert the SVG icons from stroke to fill.
 
-For example, sketch / layer / convert to outlines.
+For example: *Sketch* > *Layer* > *Convert to outlines*

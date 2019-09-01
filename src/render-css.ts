@@ -19,7 +19,7 @@ const makeUrlMap = (opts: ToFontsOptions, hashStr?: string): UrlMap => {
 
   opts.types.forEach(
     (type): void => {
-      const fontName = `${opts.fontName}${hashStr ? `_${hashStr}` : ''}.${type}`;
+      const fontName = `${opts.fontName}${opts.hash && hashStr ? `_${hashStr}` : ''}.${type}`;
       res[type] = path.join(cssFontsUrl, fontName);
     }
   );
