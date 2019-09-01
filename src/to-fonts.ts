@@ -57,18 +57,22 @@ const writeFile = (filePath: string, content: string | Buffer, opts: ToFontsOpti
 };
 
 const writeResult = (fonts: FontsResult, opts: ToFontsOptions): void => {
-  const hashStr = calcHash(opts);
-  opts.hashStr = hashStr;
+  if (opts.hash) {
+    opts.hashStr = calcHash(opts);
+  }
 
   Object.keys(fonts).forEach(
     (key): void => {
-      const filePath = path.join(opts.out as string, `${opts.fontName}${opts.hash ? `_${hashStr}` : ''}.${key}`);
+      const filePath = path.join(
+        opts.out as string,
+        `${opts.fontName}${opts.hashStr ? `_${opts.hashStr}` : ''}.${key}`
+      );
       writeFile(filePath, fonts[key as FontType] as string | Buffer, opts);
     }
   );
 
   if (opts.css.out) {
-    const css = renderCss(opts, hashStr);
+    const css = renderCss(opts);
     let out = opts.css.out as string;
 
     // not a css file
@@ -80,7 +84,7 @@ const writeResult = (fonts: FontsResult, opts: ToFontsOptions): void => {
   }
 
   if (opts.html.out) {
-    const html = renderHtml(opts, hashStr);
+    const html = renderHtml(opts);
     let out = opts.html.out as string;
 
     // not a html file

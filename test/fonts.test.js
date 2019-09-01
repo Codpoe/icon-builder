@@ -73,6 +73,11 @@ describe('toFonts', () => {
     expect(fs.statSync(htmlFile).size).toBeGreaterThan(0); // html file is not empty
   });
 
+  it('generates file without hash string when options.hash is false', async () => {
+    const { options } = await toFonts({ ...OPTIONS, hash: false, html: { out: true } });
+    expect(options.hashStr).toBeUndefined();
+  });
+
   it('generates css file with custom name in other output', async () => {
     const cssFile = path.join(__dirname, 'out-2/your-icon.css');
     const { options } = await toFonts({ ...OPTIONS, css: { out: cssFile } });

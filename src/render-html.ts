@@ -5,22 +5,19 @@ import * as prettier from 'prettier';
 import renderCss from './render-css';
 import { ToFontsOptions } from './types/index';
 
-const renderHtml = (opts: ToFontsOptions, hashStr?: string): string => {
+const renderHtml = (opts: ToFontsOptions): string => {
   const source = fs.readFileSync(opts.html.template as string, 'utf8');
   const template = handlebars.compile(source);
 
   // Styles embedded in the html file should use default CSS template and
   // have path to fonts that is relative to html file location.
-  const styles = renderCss(
-    {
-      ...opts,
-      css: {
-        ...opts.css,
-        out: opts.html.out,
-      },
+  const styles = renderCss({
+    ...opts,
+    css: {
+      ...opts.css,
+      out: opts.html.out,
     },
-    hashStr
-  );
+  });
 
   const ctx = {
     names: opts.names,

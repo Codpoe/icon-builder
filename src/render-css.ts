@@ -13,13 +13,13 @@ const urlTemplates: { [key in FontType]: UrlTemplate } = {
   svg: ({ url, fontName }): string => `url("${url}#${fontName}") format("svg")`,
 };
 
-const makeUrlMap = (opts: ToFontsOptions, hashStr?: string): UrlMap => {
+const makeUrlMap = (opts: ToFontsOptions): UrlMap => {
   const res: UrlMap = {};
   const cssFontsUrl = path.relative(path.dirname(opts.css.out as string), opts.out as string);
 
   opts.types.forEach(
     (type): void => {
-      const fontName = `${opts.fontName}${opts.hash && hashStr ? `_${hashStr}` : ''}.${type}`;
+      const fontName = `${opts.fontName}${opts.hashStr ? `_${opts.hashStr}` : ''}.${type}`;
       res[type] = path.join(cssFontsUrl, fontName);
     }
   );
@@ -63,13 +63,9 @@ const makeCtx = (opts: ToFontsOptions, urls: UrlMap): Record<string, any> => {
   };
 };
 
-const renderCss = (opts: ToFontsOptions, urlMapOrHash?: UrlMap | string): string => {
-  let urlMap: UrlMap;
-
-  if (typeof urlMapOrHash !== 'object') {
-    urlMap = makeUrlMap(opts, urlMapOrHash);
-  } else {
-    urlMap = urlMapOrHash;
+const renderCss = (opts: ToFontsOptions, urlMap?: UrlMap): string => {
+  if (!urlMap) {
+    urlMap = makeUrlMap(opts);
   }
 
   const ctx = makeCtx(opts, urlMap);
