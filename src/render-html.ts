@@ -20,6 +20,7 @@ const renderHtml = (opts: ToFontsOptions): string => {
   });
 
   const ctx = {
+    codepoints: opts.codepoints,
     names: opts.names,
     fontName: opts.fontName,
     classPrefix: opts.classPrefix,
