@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>{{fontName}} - {{names.length}} icons</title>
+	<title>{{fontName}} - {{items.length}} icons</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -45,6 +45,7 @@
 		}
 
 		.preview-content {
+			position: relative;
 			display: flex;
 			align-items: center;
 			width: 100%;
@@ -53,7 +54,6 @@
 			background: #f8f9fa;
 			border-radius: 4px;
 			color: #24292e;
-			font-size: 14px;
 			outline: none;
 			border: none;
 			cursor: pointer;
@@ -73,6 +73,26 @@
 			text-align: center;
 			margin-right: 24px;
 			font-size: 22px;
+		}
+
+		.preview-name {
+			font-size: 16px;
+			font-weight: 500;
+		}
+
+		.preview-codepoint {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 4px 6px;
+			border-radius: 4px;
+			font-size: 12px;
+			opacity: .5;
+			transition: opacity .2s;
+		}
+
+		.preview-codepoint:hover {
+			opacity: 1;
 		}
 
 		.copied {
@@ -112,17 +132,18 @@
 </head>
 <body>
 	<h1 class="title">{{fontName}}</h1>
-	<h2 class="sub-title">{{names.length}} icons</h2>
+	<h2 class="sub-title">{{items.length}} icons</h2>
 
 	<div class="preview">
-		{{#each names}}
+		{{#each items}}
 		<div class="preview-item">
 			<!-- Trigger -->
-			<button class="preview-content" data-clipboard-text="{{this}}">
+			<button class="preview-content copy-target" data-clipboard-text="{{this.name}}">
 				<span class="preview-icon">
-					<i class="{{../classPrefix}}{{this}}"></i>
+					<i class="{{../classPrefix}}{{this.name}}"></i>
 				</span>
-				<span>{{this}}</span>
+				<span class="preview-name">{{this.name}}</span>
+				<span class="preview-codepoint copy-target" data-clipboard-text="{{this.codepoint}}">{{this.codepoint}}</span>
 			</button>
 		</div>
 		{{/each}}
@@ -133,10 +154,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 	<script>
 		const copied = document.querySelector('.copied');
-		const clipboard = new ClipboardJS('.preview-content');
+		const clipboard = new ClipboardJS('.copy-target');
 		let timer;
 
 		clipboard.on('success', function(e) {
+			if (e.trigger.classList.contains('preview-content')) {
+				copied.textContent = 'Name Copied';
+			} else {
+				copied.textContent = 'Codepoint Copied';
+			}
+
 			copied.classList.add('copied--show');
 
 			if (timer) {

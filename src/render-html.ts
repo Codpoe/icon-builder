@@ -10,10 +10,10 @@ const renderHtml = (opts: ToFontsOptions): string => {
   const template = handlebars.compile(source);
 
   // Transform codepoints to hex strings
-  const codepoints = Object.keys(opts.codepoints).reduce((res: Record<string, string>, name) => {
-    res[name] = opts.codepoints[name].toString(16);
-    return res;
-  }, {});
+  const items = (opts.names || []).map(name => ({
+    name,
+    codepoint: opts.codepoints[name].toString(16).toUpperCase(),
+  }));
 
   // Styles embedded in the html file should use default CSS template and
   // have path to fonts that is relative to html file location.
@@ -26,8 +26,7 @@ const renderHtml = (opts: ToFontsOptions): string => {
   });
 
   const ctx = {
-    codepoints,
-    names: opts.names,
+    items,
     fontName: opts.fontName,
     classPrefix: opts.classPrefix,
     styles: styles,
