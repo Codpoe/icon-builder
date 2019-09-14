@@ -8,12 +8,12 @@ import { ToFontsOptions } from './types/index';
 const renderHtml = (opts: ToFontsOptions): string => {
   const source = fs.readFileSync(opts.html.template as string, 'utf8');
   const template = handlebars.compile(source);
-  
-  const codepoints: { [key: string]: string } = {};
+
   // Transform codepoints to hex strings
-  Object.keys(opts.codepoints).forEach((name): void => {
-    codepoints[name] = opts.codepoints[name].toString(16);
-  });
+  const codepoints = Object.keys(opts.codepoints).reduce((res: Record<string, string>, name) => {
+    res[name] = opts.codepoints[name].toString(16);
+    return res;
+  }, {});
 
   // Styles embedded in the html file should use default CSS template and
   // have path to fonts that is relative to html file location.
