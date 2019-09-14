@@ -12,7 +12,7 @@ const renderHtml = (opts: ToFontsOptions): string => {
   // Transform codepoints to hex strings
   const items = (opts.names || []).map(name => ({
     name,
-    codepoint: opts.codepoints[name].toString(16).toUpperCase(),
+    codepoint: opts.codepoints[name].toString(16),
   }));
 
   // Styles embedded in the html file should use default CSS template and

@@ -88,11 +88,6 @@
 			border-radius: 4px;
 			font-size: 12px;
 			opacity: .5;
-			transition: opacity .2s;
-		}
-
-		.preview-codepoint:hover {
-			opacity: 1;
 		}
 
 		.copied {
@@ -138,12 +133,12 @@
 		{{#each items}}
 		<div class="preview-item">
 			<!-- Trigger -->
-			<button class="preview-content copy-target" data-clipboard-text="{{this.name}}">
+			<button class="preview-content" data-clipboard-text="{{this.name}}">
 				<span class="preview-icon">
 					<i class="{{../classPrefix}}{{this.name}}"></i>
 				</span>
 				<span class="preview-name">{{this.name}}</span>
-				<span class="preview-codepoint copy-target" data-clipboard-text="{{this.codepoint}}">{{this.codepoint}}</span>
+				<span class="preview-codepoint">{{this.codepoint}}</span>
 			</button>
 		</div>
 		{{/each}}
@@ -154,16 +149,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 	<script>
 		const copied = document.querySelector('.copied');
-		const clipboard = new ClipboardJS('.copy-target');
+		const clipboard = new ClipboardJS('.preview-content');
 		let timer;
 
 		clipboard.on('success', function(e) {
-			if (e.trigger.classList.contains('preview-content')) {
-				copied.textContent = 'Name Copied';
-			} else {
-				copied.textContent = 'Codepoint Copied';
-			}
-
 			copied.classList.add('copied--show');
 
 			if (timer) {
