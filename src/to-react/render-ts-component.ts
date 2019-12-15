@@ -12,7 +12,7 @@ export default ($: CheerioStatic, name: string): string => {
       style?: React.CSSProperties;
     }
 
-    const ${name}: React.SFC<${name}Props> = (props: ${name}Props): React.ReactElement => {
+    export const ${name}: React.SFC<${name}Props> = (props: ${name}Props): React.ReactElement => {
       const { color, size, style, ...restProps } = props;
       return (
         ${renderSvg($)}

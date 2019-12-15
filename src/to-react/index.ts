@@ -30,7 +30,7 @@ export default async (opts: ToReactOptions): Promise<void> => {
   const iconNames = icons.map(
     (icon): string => {
       let name = path.basename(icon, '.svg');
-      name = name === 'github' ? 'GitHub' : upperCamelCase(name);
+      name = `Icon${name === 'github' ? 'GitHub' : upperCamelCase(name)}`;
 
       const $ = loadSvg(fs.readFileSync(icon, 'utf-8'));
       const component = opts.ts ? renderTsComponent($, name) : renderJsComponent($, name);
@@ -41,8 +41,6 @@ export default async (opts: ToReactOptions): Promise<void> => {
   );
 
   const exportAny = iconNames.map((name): string => `export * from './${name}';`).join('\n');
-  const exportIcon = iconNames.map((name): string => `export { default as ${name} } from './${name}';`).join('\n');
-  const content = opts.ts ? `${exportAny}\n\n${exportIcon}\n` : `${exportIcon}\n`;
 
-  fs.writeFileSync(path.join(opts.out, `index.${ext}`), content, 'utf-8');
+  fs.writeFileSync(path.join(opts.out, `index.${ext}`), `${exportAny}\n`, 'utf-8');
 };

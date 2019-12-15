@@ -1,5 +1,5 @@
 {
-  "name": "icon-builder",
+  "name": "@toolman/icon-builder",
   "version": "2.1.0",
   "description": "Builder of iconfont / icon-components from svg icons",
   "main": "lib/index.js",
@@ -43,7 +43,7 @@
     "cheerio": "^1.0.0-rc.3",
     "glob": "^7.1.4",
     "handlebars": "^4.0.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",
     "prettier": "^1.17.1",
     "svg2ttf": "^4.2.0",
