@@ -1,6 +1,6 @@
 {
   "name": "@toolman/icon-builder",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Builder of iconfont / icon-components from svg icons",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
